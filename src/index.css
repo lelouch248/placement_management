@@ -2,26 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 :root {
-  --primary-color: #F6F4EB;
-  --secondary-color: #91C8E4;
-  --accent-color: #749BC2;
-  --text-color: #4682A9;
+	--primary-color: #f6f4eb;
+	--secondary-color: #91c8e4;
+	--accent-color: #749bc2;
+	--text-color: #4682a9;
 }
 
 body {
-  background-color: var(--primary-color);
-  color: var(--text-color);
+	background-color: var(--primary-color);
+	color: var(--text-color);
 }
 
 h1 {
-  color: var(--secondary-color);
+	color: var(--secondary-color);
 }
 
 p {
-  color: var(--text-color);
+	color: var(--text-color);
 }
 
-button {
-  background-color: var(--accent-color);
-  color: var(--text-color);
+button,
+.button {
+	background-color: var(--accent-color);
+	color: var(--text-color);
+}
+
+/* YourOtherStyles.css or a separate CSS file */
+/* Customizing scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
