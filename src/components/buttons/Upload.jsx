@@ -1,43 +1,38 @@
 import { useDropzone } from "react-dropzone";
-import { useEffect } from "react";
-import "./../styling/Upload.css";
-import { useState } from "react";
-import PropTypes from "prop-types";
 import { read, utils } from "xlsx";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-const FileUploader = ({ onSelectFile }) => {
-  const [fileSelected, setFileSelected] = useState(false);
+import "./../styling/Upload.css";
+
+const FileUploader = () => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     // Check local storage for saved file data
     const savedData = localStorage.getItem("uploadedFileData");
     if (savedData) {
       // If data exists in local storage, use it
-      const parsedData = JSON.parse(savedData);
-      onSelectFile({ fileSelected: true, excelData: parsedData });
-      setFileSelected(true);
+      navigate("/dashboard");
     }
-  }, [onSelectFile]);
+  }, [navigate]);
 
   const onDrop = (acceptedFiles) => {
+    // we are using only one file, so we will use the first element from the array
     const file = acceptedFiles[0];
     const reader = new FileReader();
-
+    // data processing will be done after the file is loaded
     reader.onload = (e) => {
       const data = new Uint8Array(e.target.result);
       const workbook = read(data, { type: "array" });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
       const parsedData = utils.sheet_to_json(worksheet, { header: 1 });
-
+      // we say this data into local storage
       localStorage.setItem("uploadedFileData", JSON.stringify(parsedData));
-
-      setFileSelected(true);
-      console.log("File selected in upload:", fileSelected);
-      console.log("Excel data:", parsedData);
-      onSelectFile({ fileSelected: true, excelData: parsedData });
     };
-
     reader.readAsArrayBuffer(file);
+    navigate("/dashboard");
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -54,10 +49,6 @@ const FileUploader = ({ onSelectFile }) => {
       </div>
     </div>
   );
-};
-
-FileUploader.propTypes = {
-  onSelectFile: PropTypes.func.isRequired,
 };
 
 export default FileUploader;

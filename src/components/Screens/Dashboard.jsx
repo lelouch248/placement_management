@@ -4,17 +4,29 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TableHead from "@mui/material/TableHead";
-import PropTypes from "prop-types";
 import "./../styling/Dashboard.css";
 import SearchBar from "../buttons/Search";
 import Checkbox from "../buttons/Checkbox";
 import SidebarDash from "../SidebarDash";
+import { useEffect, useState } from "react";
 
-const Dashboard = ({ excelData }) => {
+const Dashboard = () => {
+  const [excelData, setExcelData] = useState([]);
+  useEffect(() => {
+    // Check local storage for saved file data
+    const savedData = localStorage.getItem("uploadedFileData");
+    if (savedData) {
+      setExcelData(JSON.parse(savedData));
+    } else {
+      setExcelData([]);
+    }
+  }, []);
+
   // sample search result
   const onSearch = (searchTerm) => {
     console.log(searchTerm);
   };
+  
   if (excelData.length > 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -63,8 +75,8 @@ const Dashboard = ({ excelData }) => {
   }
 };
 
-Dashboard.propTypes = {
-  excelData: PropTypes.array.isRequired,
-};
+// Dashboard.propTypes = {
+//   excelData: PropTypes.array.isRequired,
+// };
 
 export default Dashboard;
