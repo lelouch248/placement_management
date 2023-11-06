@@ -9,10 +9,8 @@ const FileUploader = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check local storage for saved file data
     const savedData = localStorage.getItem("uploadedFileData");
     if (savedData) {
-      // If data exists in local storage, use it
       navigate("/dashboard");
     }
   }, [navigate]);
@@ -30,15 +28,16 @@ const FileUploader = () => {
       const parsedData = utils.sheet_to_json(worksheet, { header: 1 });
       // we say this data into local storage
       localStorage.setItem("uploadedFileData", JSON.stringify(parsedData));
+      console.log("im in upload.jsx and now i am printing the parsed data");
+      console.log(parsedData);
+      navigate("/dashboard");
     };
     reader.readAsArrayBuffer(file);
-    navigate("/dashboard");
   };
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop,
-    accept:
-      ".csv, application/vnd.ms-excel, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    accept: ".csv, .xlsx",
   });
 
   return (

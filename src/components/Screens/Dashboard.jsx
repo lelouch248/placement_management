@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [excelData, setExcelData] = useState([]);
+  console.log(typeof excelData[0]);
+  console.log(excelData[0]);
   useEffect(() => {
     // Check local storage for saved file data
     const savedData = localStorage.getItem("uploadedFileData");
@@ -26,7 +28,7 @@ const Dashboard = () => {
   const onSearch = (searchTerm) => {
     console.log(searchTerm);
   };
-  
+
   if (excelData.length > 0) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
@@ -74,9 +76,5 @@ const Dashboard = () => {
     );
   }
 };
-
-// Dashboard.propTypes = {
-//   excelData: PropTypes.array.isRequired,
-// };
 
 export default Dashboard;
