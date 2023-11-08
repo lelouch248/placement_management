@@ -1,9 +1,11 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableRow from "@mui/material/TableRow";
-import TableHead from "@mui/material/TableHead";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 import "./../styling/Dashboard.css";
 import SearchBar from "../buttons/Search";
 import Checkbox from "../buttons/Checkbox";
@@ -12,16 +14,18 @@ import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [excelData, setExcelData] = useState([]);
-  console.log(typeof excelData[0]);
-  console.log(excelData[0]);
-  useEffect(() => {
-    // Check local storage for saved file data
+  const localStorageCheck = () => {
     const savedData = localStorage.getItem("uploadedFileData");
     if (savedData) {
       setExcelData(JSON.parse(savedData));
     } else {
       setExcelData([]);
     }
+  };
+
+  useEffect(() => {
+    // Check local storage for saved file data
+    localStorageCheck();
   }, []);
 
   // sample search result

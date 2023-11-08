@@ -28,8 +28,6 @@ const FileUploader = () => {
       const parsedData = utils.sheet_to_json(worksheet, { header: 1 });
       // we say this data into local storage
       localStorage.setItem("uploadedFileData", JSON.stringify(parsedData));
-      console.log("im in upload.jsx and now i am printing the parsed data");
-      console.log(parsedData);
       navigate("/dashboard");
     };
     reader.readAsArrayBuffer(file);
