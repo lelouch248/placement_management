@@ -4,9 +4,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.table-cell:hover {
-  text-align: center;
-}
 .tableContainer {
   width: 100%;
   height: 300px; /* Set the height as needed */
