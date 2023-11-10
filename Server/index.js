@@ -4,22 +4,16 @@ const bodyParser = require("body-parser");
 const app = express();
 const PORT = 3000;
 
+// file imports
+const connectDB = require("./mongodb/connection");
+
 // Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 
-// Connect to MongoDB Atlas
-// mongoose.connect("YOUR_MONGODB_URI", {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-
-// const db = mongoose.connection;
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
-// db.once("open", () => {
-//   console.log("Connected to MongoDB");
-// });
-
+// Connect to MongoDB
+connectDB();
 // Example route - replace this with your routes
 app.get("/api/data", (_, res) => {
   // Perform database operations here using mongoose
