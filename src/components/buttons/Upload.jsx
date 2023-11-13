@@ -2,6 +2,7 @@ import { useDropzone } from "react-dropzone";
 import { read, utils } from "xlsx";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import Axios for making HTTP requests
 
 import "./../styling/Upload.css";
 
@@ -27,7 +28,17 @@ const FileUploader = () => {
       const worksheet = workbook.Sheets[sheetName];
       const parsedData = utils.sheet_to_json(worksheet, { header: 1 });
       // we say this data into local storage
-      localStorage.setItem("uploadedFileData", JSON.stringify(parsedData));
+      axios
+        .post("http://localhost:3000/api/upload-student-data", { parsedData })
+        .then((response) => {
+          console.log("Data sent to backend:", response.data);
+          localStorage.setItem("uploadedFileData", JSON.stringify(parsedData));
+          navigate("/dashboard");
+        })
+        .catch((error) => {
+          console.error("Error sending data to the backend:", error);
+        });
+
       navigate("/dashboard");
     };
     reader.readAsArrayBuffer(file);
