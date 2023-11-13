@@ -26,12 +26,14 @@ const studentDetailSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
+    default: "nigga@gmail.com",
   },
   gender: {
     type: String,
     required: true,
     trim: true,
-    enum: ["male", "female", "non-binary", "other"],
+    enum: ["male", "female", "non-binary", "other", "ND"],
+    default: "ND",
   },
 
   basePacakge: {
