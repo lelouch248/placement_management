@@ -3,7 +3,7 @@ import SearchBar from "../buttons/Search";
 import Checkbox from "../buttons/Checkbox";
 import SidebarDash from "../SidebarDash";
 import { useEffect, useState } from "react";
-import DashboardTable from "../DashboardTable";
+import DashboardTable from "./DashboardTable";
 import axios from "axios";
 import HourGlassAnimation from "../../Loader/HourGlassAnimation";
 

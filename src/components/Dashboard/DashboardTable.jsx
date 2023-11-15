@@ -1,7 +1,7 @@
 import { Table, TableBody, TableContainer, TableHead } from "@mui/material";
 import { useState } from "react";
 import PropTypes from "prop-types";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 import DashboardTableBodyCell from "./DashboardTableBodyCells";
 import DashBoardTableHeader from "./DashBoardTableHeader";
 import "./styling/dashboard.css";

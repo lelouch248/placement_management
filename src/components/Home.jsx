@@ -1,4 +1,4 @@
-import FileUploader from "../buttons/Upload";
+import FileUploader from "./buttons/Upload";
 // import { useState } from "react";
 import "./../styling/home.css";
 
