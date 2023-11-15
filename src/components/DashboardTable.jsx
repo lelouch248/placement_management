@@ -1,18 +1,15 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
+import { Table, TableBody, TableContainer, TableHead } from "@mui/material";
 import { useState } from "react";
 import PropTypes from "prop-types";
 import DeleteModal from "./DeleteModal";
+import DashboardTableBodyCell from "./DashboardTableBodyCells";
+import DashBoardTableHeader from "./DashBoardTableHeader";
 import "./styling/dashboard.css";
 
 const DashboardTable = ({ excelData }) => {
+  // global varibales
+  const studentAttributes = Object.keys(excelData[0]);
+
   // Delete logic
   const [isDeleteButtonShown, setDeleteButtonShown] = useState(false);
   const [columnToDelete, setColumnToDelete] = useState(-1);
@@ -25,13 +22,13 @@ const DashboardTable = ({ excelData }) => {
 
   const handleMouseLeave = () => {
     setDeleteButtonShown(false);
-    setColumnToDelete(-1);
   };
 
   const handleDeleteColumn = (index) => {
     // Here you can add your MongoDB delete logic
-    console.log("Delete column:", index);
+    console.log("Delete :", index);
     setShowModal(false);
+    setColumnToDelete(-1);
   };
 
   return (
@@ -41,33 +38,23 @@ const DashboardTable = ({ excelData }) => {
         className="tableContainer">
         <Table>
           <TableHead>
-            <TableRow>
-              {excelData.length > 0 &&
-                excelData[0].map((header, i) => (
-                  <TableCell
-                    key={i}
-                    className="table-cell"
-                    onMouseEnter={handleMouseEnter.bind(this, i)}
-                    onMouseLeave={handleMouseLeave}>
-                    {isDeleteButtonShown && columnToDelete === i ? (
-                      <DeleteIcon
-                        className="delete-icon"
-                        onClick={() => setShowModal(true)}
-                      />
-                    ) : (
-                      header
-                    )}
-                  </TableCell>
-                ))}
-            </TableRow>
+            <DashBoardTableHeader
+              isDeleteButtonShown={isDeleteButtonShown}
+              columnToDelete={columnToDelete}
+              setColumnToDelete={setColumnToDelete}
+              handleMouseLeave={handleMouseLeave}
+              handleMouseEnter={handleMouseEnter}
+              studentAttributes={studentAttributes}
+              setShowModal={setShowModal}
+            />
           </TableHead>
           <TableBody>
-            {excelData.slice(1).map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                {row.map((cell, cellIndex) => (
-                  <TableCell key={cellIndex}>{cell}</TableCell>
-                ))}
-              </TableRow>
+            {excelData.map((data, dataIndex) => (
+              <DashboardTableBodyCell
+                key={dataIndex}
+                data={data}
+                dataIndex={dataIndex}
+              />
             ))}
           </TableBody>
         </Table>
@@ -76,9 +63,9 @@ const DashboardTable = ({ excelData }) => {
         <DeleteModal
           showModal={showModal}
           handleClose={() => setShowModal(false)}
-          handleDelete={() =>
-            handleDeleteColumn(columnToDelete, columnToDelete)
-          }
+          handleDelete={() => {
+            handleDeleteColumn(columnToDelete);
+          }}
         />
       )}
     </>
