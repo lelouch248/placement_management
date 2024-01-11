@@ -1,0 +1,17 @@
+.navigation-bar {
+  display: flex;
+  align-items: start;
+  align-items: center;
+  height: 50px;
+  background-color: var(--secondary-color);
+  padding: 0.5rem;
+  border-radius: 50px;
+  margin: 0.5rem;
+  padding: 2rem 1rem;
+}
+
+.nav-item {
+  padding: 0.5rem;
+  margin: 40px;
+  background-color: white;
+}

@@ -10,6 +10,7 @@ const connectDB = require("./mongodb/connection");
 const convertArrayToJson = require("./mongodb/function/convertArrayToJson");
 const insertData = require("./mongodb/function/insertStudentData");
 const getStudentData = require("./mongodb/function/getStudentData");
+const DeleteAtrributeFromDb = require("./mongodb/function/deleteAttributeFromDb");
 
 // Body parser middleware
 app.use(express.json());
@@ -36,6 +37,16 @@ app.get("/api/get-student-data", async (_, res) => {
   res.json(studentData);
 });
 
+app.delete("/api/delete/:attribute", async (req, res) => {
+  const { attribute } = req.params;
+  try {
+    DeleteAtrributeFromDb(attribute);
+    res.status(200).send(`Column ${attribute} deleted successfully.`);
+  } catch (error) {
+    console.error(`Failed to delete column ${attribute}.`, error);
+    res.status(500).send(`Failed to delete column ${attribute}.`);
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
